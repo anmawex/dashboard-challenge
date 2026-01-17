@@ -1,8 +1,14 @@
 /**
- * Main layout component with navigation
- * @module components/layout/Layout
+ * @module components/shell/Layout
+ *
+ * @description Componente de disposición principal que proporciona estructura de navegación
+ * para la aplicación de gestión de inventario.
+ *
+ * Implementa un diseño receptivo con barra lateral persistente en escritorio y cajón plegable
+ * en dispositivos móviles.
  */
-import React, { useState } from "react";
+
+import { useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
 	AppBar,
@@ -27,14 +33,45 @@ import {
 	AddBox as AddBoxIcon,
 } from "@mui/icons-material";
 
+/** @constant {number} drawerWidth - Ancho del cajón de la barra lateral en píxeles */
 const drawerWidth = 260;
 
+/**
+ * Array de configuración de elementos de navegación
+ * @constant {Array<Object>} navItems
+ * @property {string} text - Nombre mostrado del elemento de navegación
+ * @property {React.ReactElement} icon - Componente de icono MUI para el elemento de navegación
+ * @property {string} path - Ruta a navegar cuando se hace clic
+ */
 const navItems = [
 	{ text: "Dashboard", icon: <DashboardIcon />, path: "/" },
 	{ text: "Inventario", icon: <InventoryIcon />, path: "/inventory" },
 	{ text: "Nuevo Producto", icon: <AddBoxIcon />, path: "/products/new" },
 ];
 
+/**
+ * Componente Layout
+ *
+ * @component
+ * @description Disposición principal de la aplicación con navegación receptiva en la barra
+ * lateral.
+ *
+ * Características:
+ * - AppBar fija con alternancia de menú para dispositivos móviles
+ * - Cajón receptivo (temporal en móvil, permanente en escritorio)
+ * - Navegación con resaltado de ruta activa
+ * - Título de página dinámico basado en la ruta actual
+ *
+ * @returns {React.ReactElement} Envoltura de Layout con AppBar, Drawer y salida de contenido
+ *
+ * @example
+ * <Routes>
+ *   <Route element={<Layout />}>
+ *     <Route path="/" element={<Dashboard />} />
+ *     <Route path="/inventory" element={<Inventory />} />
+ *   </Route>
+ * </Routes>
+ */
 const Layout = () => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -42,10 +79,21 @@ const Layout = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
+	/**
+	 * Alterna el estado abierto/cerrado del cajón móvil
+	 * @function handleDrawerToggle
+	 * @returns {void}
+	 */
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
 
+	/**
+	 * Maneja la navegación a una ruta especificada y cierra el cajón móvil si está abierto
+	 * @function handleNavigation
+	 * @param {string} path - La ruta a navegar
+	 * @returns {void}
+	 */
 	const handleNavigation = (path) => {
 		navigate(path);
 		if (isMobile) {
@@ -53,6 +101,10 @@ const Layout = () => {
 		}
 	};
 
+	/**
+	 * Componente de contenido del cajón con marca y menú de navegación
+	 * @type {React.ReactElement}
+	 */
 	const drawer = (
 		<Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
 			<Box
@@ -118,9 +170,23 @@ const Layout = () => {
 	);
 
 	return (
+		/**
+		 * Contenedor de disposición principal con diseño flexbox
+		 * Estructura:
+		 * - CssBaseline: Normaliza estilos en navegadores
+		 * - AppBar: Encabezado fijo con título y alternancia de menú móvil
+		 * - nav: Cajón de navegación (receptivo)
+		 * - main: Área de contenido con Outlet para rutas anidadas
+		 */
 		<Box sx={{ display: "flex", minHeight: "100vh" }}>
 			<CssBaseline />
 
+			{/**
+			 * Barra de encabezado de aplicación
+			 * - Posición fija ocupando el ancho completo en móvil, ajustada en escritorio
+			 * - Contiene alternancia de menú hamburguesa para móvil y título de página actual
+			 * - Usa color background.paper para combinarse con la disposición principal
+			 */}
 			<AppBar
 				position="fixed"
 				sx={{
@@ -147,6 +213,12 @@ const Layout = () => {
 				</Toolbar>
 			</AppBar>
 
+			{/**
+			 * Contenedor de navegación
+			 * Sistema de cajón receptivo con dos variantes:
+			 * 1. Cajón temporal para móvil (plegable)
+			 * 2. Cajón permanente para escritorio (siempre visible)
+			 */}
 			<Box
 				component="nav"
 				sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}>
@@ -181,6 +253,13 @@ const Layout = () => {
 				</Drawer>
 			</Box>
 
+			{/**
+			 * Área de contenido principal
+			 * - Se flexiona para llenar el espacio restante
+			 * - Contiene el Outlet para componentes de ruta anidados
+			 * - Tiene en cuenta la altura de AppBar con mt: "64px"
+			 * - Usa color de fondo predeterminado del tema
+			 */}
 			<Box
 				component="main"
 				sx={{
