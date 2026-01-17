@@ -1,6 +1,6 @@
-import { Routes, Route } from 'react-router-dom'
-import Layout from './app/shell/Layout'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import Layout from "@/app/shell/Layout";
+import "./App.css";
 
 function App() {
 	return (
@@ -11,7 +11,7 @@ function App() {
 				<Route path="/products/new" element={<div>Nuevo Producto</div>} />
 			</Route>
 		</Routes>
-	)
+	);
 }
 
-export default App
+export default App;
