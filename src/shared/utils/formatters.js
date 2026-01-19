@@ -114,7 +114,7 @@ export const truncateText = (text, maxLength = 50) => {
  * <img src={product.image || getPlaceholderImage()} alt="Producto" />
  */
 export const getPlaceholderImage = () => {
-	return "https://via.placeholder.com/300x200?text=Sin+Imagen";
+	return new URL("@/assets/no_image.png", import.meta.url).href;
 };
 
 /**
