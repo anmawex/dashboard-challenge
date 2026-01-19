@@ -1,9 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./app/shell/Layout";
-import Dashboard from "./app/dashboard/Dashboard";
+import Dashboard from "./app/dashboard/views/Dashboard";
 import Inventory from "./app/inventory/views/Inventory";
 import NewProduct from "./app/products/new/NewProduct";
 import ProductEdit from "./app/products/edit/EditProduct";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./app/theme/muiTheme";
+import CssBaseline from "@mui/material/CssBaseline";
+
 import "./App.css";
 
 /**
@@ -26,14 +30,17 @@ import "./App.css";
  */
 function App() {
 	return (
-		<Routes>
-			<Route element={<Layout />}>
-				<Route index element={<Dashboard />} />
-				<Route path="/inventory" element={<Inventory />} />
-				<Route path="/products/new" element={<NewProduct />} />
-				<Route path="/products/edit/:id" element={<ProductEdit />} />
-			</Route>
-		</Routes>
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<Routes>
+				<Route element={<Layout />}>
+					<Route index element={<Dashboard />} />
+					<Route path="/inventory" element={<Inventory />} />
+					<Route path="/products/new" element={<NewProduct />} />
+					<Route path="/products/edit/:id" element={<ProductEdit />} />
+				</Route>
+			</Routes>
+		</ThemeProvider>
 	);
 }
 
