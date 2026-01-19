@@ -49,13 +49,13 @@ const CategoryPieChart = ({ data }) => {
 				</Typography>
 				<Box sx={{ height: 300 }}>
 					<ResponsiveContainer width="100%" height="100%">
-						<PieChart>
+						<PieChart margin={{ top: 30, right: 30, bottom: 30, left: 30 }}>
 							<Pie
 								data={data}
 								cx="50%"
 								cy="50%"
-								innerRadius={60}
-								outerRadius={100}
+								innerRadius={20}
+								outerRadius={50}
 								paddingAngle={3}
 								dataKey="value"
 								// Formateo de la etiqueta que sale del gráfico

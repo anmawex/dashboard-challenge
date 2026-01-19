@@ -34,7 +34,7 @@ function App() {
 			<CssBaseline />
 			<Routes>
 				<Route element={<Layout />}>
-					<Route index element={<Dashboard />} />
+					<Route path="/" element={<Dashboard />} />
 					<Route path="/inventory" element={<Inventory />} />
 					<Route path="/products/new" element={<NewProduct />} />
 					<Route path="/products/edit/:id" element={<ProductEdit />} />
