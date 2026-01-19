@@ -35,7 +35,6 @@ import {
 
 /** @constant {number} drawerWidth - Ancho del cajón de la barra lateral en píxeles */
 const drawerWidth = 260;
-
 /**
  * Array de configuración de elementos de navegación
  * @constant {Array<Object>} navItems
@@ -123,10 +122,10 @@ const Layout = () => {
 						alignItems: "center",
 						gap: 1,
 					}}>
-					<InventoryIcon /> StockPro
+					<InventoryIcon /> Bault
 				</Typography>
 				<Typography variant="caption" sx={{ color: "rgba(255,255,255,0.8)" }}>
-					Gestión de Inventario
+					"Buscando tu facilidad y calidad"
 				</Typography>
 			</Box>
 
@@ -208,7 +207,7 @@ const Layout = () => {
 
 					<Typography variant="h6" noWrap sx={{ fontWeight: 600 }}>
 						{navItems.find((item) => item.path === location.pathname)?.text ||
-							"StockPro"}
+							"Baul"}
 					</Typography>
 				</Toolbar>
 			</AppBar>
