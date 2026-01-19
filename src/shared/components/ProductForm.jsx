@@ -80,7 +80,7 @@ const ProductForm = ({ initialData, onSubmit, onCancel, isSubmitting }) => {
 	} = useForm({
 		defaultValues: {
 			title: initialData?.title || "",
-			price: initialData?.price || 0,
+			price: initialData?.price || "",
 			description: initialData?.description || "",
 			categoryId: initialData?.category?.id || 0,
 			imageUrl: initialData?.images?.[0] || "",
@@ -126,7 +126,10 @@ const ProductForm = ({ initialData, onSubmit, onCancel, isSubmitting }) => {
 	 * @param {string} data.imageUrl - URL de la imagen del producto
 	 */
 	const handleFormSubmit = (data) => {
-		onSubmit(data);
+		onSubmit({
+			...data,
+			price: parseFloat(data.price.toString().replace(",", ".")) || 0,
+		});
 	};
 
 	if (categoriesLoading) {
@@ -219,11 +222,13 @@ const ProductForm = ({ initialData, onSubmit, onCancel, isSubmitting }) => {
 														<Typography sx={{ mr: 1 }}>$</Typography>
 													),
 												}}
+												inputProps={{ step: "0.01" }}
 												error={!!errors.price}
 												helperText={errors.price?.message}
-												onChange={(e) =>
-													field.onChange(parseFloat(e.target.value) || 0)
-												}
+												onChange={(e) => {
+													const value = e.target.value.replace(/^0+/, "");
+													field.onChange(value);
+												}}
 											/>
 										)}
 									/>
