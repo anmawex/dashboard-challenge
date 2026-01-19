@@ -3,6 +3,7 @@ import Layout from "./app/shell/Layout";
 import Dashboard from "./app/dashboard/Dashboard";
 import Inventory from "./app/inventory/views/Inventory";
 import NewProduct from "./app/products/new/NewProduct";
+import ProductEdit from "./app/products/edit/EditProduct";
 import "./App.css";
 
 /**
@@ -19,6 +20,7 @@ import "./App.css";
  * - Ruta principal: Dashboard
  * - Ruta /inventory: Inventario
  * - Ruta /products/new: Crear nuevo producto
+ * - Ruta /products/edit/:id: Editar producto existente
  *
  * @returns {React.ReactElement} Estructura de rutas con Layout como wrapper
  */
@@ -29,6 +31,7 @@ function App() {
 				<Route index element={<Dashboard />} />
 				<Route path="/inventory" element={<Inventory />} />
 				<Route path="/products/new" element={<NewProduct />} />
+				<Route path="/products/edit/:id" element={<ProductEdit />} />
 			</Route>
 		</Routes>
 	);
